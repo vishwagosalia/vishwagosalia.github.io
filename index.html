@@ -100,15 +100,15 @@
                             <ul>
                                 <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> 24 November 1999</li>
                                 <!-- <li><i class="icofont-rounded-right"></i> <strong>Website:</strong> www.example.com</li> -->
-                                <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +91 8080134037</li>
+                                <li id="about-phone"></li>
                                 <li><i class="icofont-rounded-right"></i> <strong>City:</strong> Mumbai, India</li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <ul>
-                                <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 21</li>
+                                <li id="about-age"></li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Degree:</strong> B.E.</li>
-                                <li><i class="icofont-rounded-right"></i> <strong>Email:</strong> vishwagosalia@gmail.com</li>
+                                <li id="about-email"></li>
                                 <!-- <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong> Available</li> -->
                             </ul>
                         </div>
@@ -117,9 +117,11 @@
                         Looking forward to contributing my skillset to build something sustainable for the company. I am also eager to continue to be at all times exposed to new technologies, concepts, and solutions and ready to work independently or in a team with diligent
                         perseverance and dedication.
                     </p>
+                    <p>
+                        I am an avid sports lover, recently I enjoy playing badminton and table tennis but professionally I hold black belt in martial arts. I typically play football, chess, carrom or cricket in my free time.
+                    </p>
                 </div>
             </div>
-
         </div>
         <!-- End About Me -->
 
@@ -450,7 +452,7 @@
                     <h3 class="resume-title">Work</h3>
                     <div class="resume-item">
                         <h4>Software Developer Engineer - Backend</h4>
-                        <h5>2021 - Present</h5>
+                        <h5>07/2021 - Present</h5>
                         <p><em>Helpshift Technologies</em></p>
                         <p>Currently working with Integrations team on backend and deal with APIs, scheduled jobs, different kind of databases and focus on features for clients.</p>
                     </div>
@@ -458,7 +460,7 @@
                     <h3 class="resume-title">Education</h3>
                     <div class="resume-item">
                         <h4>B.E. - Information Technology Engineering</h4>
-                        <h5>2018 - Present</h5>
+                        <h5>2018 - 2021</h5>
                         <p><em>K. J. Somaiya Institute of Engineering & Information Technology</em></p>
                         <p>Average - 9 cgpa</p>
                     </div>
@@ -797,14 +799,14 @@
                     <div class="info-box">
                         <i class="bx bx-envelope"></i>
                         <h3>Email</h3>
-                        <p>vishwagosalia@gmail.com</p>
+                        <p id="contact-email"></p>
                     </div>
                 </div>
                 <div class="col-md-6 mt-4 d-flex align-items-stretch">
                     <div class="info-box">
                         <i class="bx bx-phone-call"></i>
                         <h3>Call</h3>
-                        <p>+91 80801 34037</p>
+                        <p id="contact-mobile"></p>
                     </div>
                 </div>
             </div>
@@ -832,6 +834,23 @@
         function offpreloader() {
             gif.style.display = 'none';
         }
+    </script>
+
+    <script type="text/javascript">
+        const email = "vishwagosalia@gmail.com";
+        const mobile = "+91 80801 34037";
+
+        function getAge()
+        {
+            var dob = '1999-11-24';
+            var ageInMilliseconds = new Date() - new Date(dob);
+            return Math.floor(ageInMilliseconds/1000/60/60/24/365); // convert to years
+        }
+        document.getElementById("about-age").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Age:</strong> " + getAge();
+        document.getElementById("about-phone").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Phone:</strong> " + mobile;
+        document.getElementById("about-email").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Email:</strong> " + email;
+        document.getElementById("contact-mobile").innerHTML = mobile;
+        document.getElementById("contact-email").innerHTML = email;
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
