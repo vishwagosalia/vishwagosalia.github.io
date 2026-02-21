@@ -36,19 +36,35 @@
 
         #pageloader {
             position: fixed;
-            left: 0px;
-            top: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
+            height: 4px;
             z-index: 9999;
-            background: url('assets/img/loader.gif') 50% 50% no-repeat;
-            opacity: .8;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #149ddd, #0a86c7);
+            width: 0%;
+            box-shadow: 0 0 8px rgba(20, 157, 221, 0.6);
+            transition: width 0.3s ease;
+        }
+
+        .progress-bar.complete {
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.1s;
         }
     </style>
 </head>
 
-<body onload="offpreloader()">
-    <div id="pageloader"></div>
+<body>
+    <div id="pageloader">
+        <div class="progress-bar"></div>
+    </div>
     <!-- ======= Header ======= -->
     <header id="header" class="header-tops">
         <div class="container">
@@ -897,14 +913,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6 mt-4 d-flex align-items-stretch">
-                    <div class="info-box">
-                        <i class="bx bx-envelope"></i>
-                        <h3>Email</h3>
-                        <p id="contact-email"></p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -925,27 +933,45 @@
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-        var gif = document.getElementById('pageloader');
+        var progressBar = document.querySelector('.progress-bar');
+        var pageLoader = document.getElementById('pageloader');
+        var loaderStartTime = Date.now();
+        var minLoaderDisplayTime = 200; // milliseconds
+        var currentProgress = 10;
 
-        function offpreloader() {
-            gif.style.display = 'none';
+        // Simulate progress
+        var progressInterval = setInterval(function() {
+            currentProgress += Math.random() * 30;
+            if (currentProgress > 90) currentProgress = 90;
+            progressBar.style.width = currentProgress + '%';
+        }, 200);
+
+        function completeProgress() {
+            clearInterval(progressInterval);
+            progressBar.style.width = '100%';
+            
+            var elapsedTime = Date.now() - loaderStartTime;
+            var delayNeeded = Math.max(0, minLoaderDisplayTime - elapsedTime);
+            
+            setTimeout(function() {
+                progressBar.classList.add('complete');
+                setTimeout(function() {
+                    pageLoader.style.display = 'none';
+                }, 600);
+            }, delayNeeded);
         }
+
+        // Use 'load' event - fires when ALL resources are loaded
+        window.addEventListener('load', completeProgress);
     </script>
 
     <script type="text/javascript">
-        const email = "vishwagosalia@gmail.com";
-        // const mobile = "+91 80801 34037";
-
         function getAge() {
             var dob = '1999-11-24';
             var ageInMilliseconds = new Date() - new Date(dob);
             return Math.floor(ageInMilliseconds / 1000 / 60 / 60 / 24 / 365); // convert to years
         }
         document.getElementById("about-age").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Age:</strong> " + getAge();
-        document.getElementById("about-phone").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Phone:</strong> " + mobile;
-        document.getElementById("about-email").innerHTML = "<i class=\"icofont-rounded-right\"></i> <strong>Email:</strong> " + email;
-        document.getElementById("contact-mobile").innerHTML = mobile;
-        document.getElementById("contact-email").innerHTML = email;
     </script>
 
     <!-- ======= Posts Section ======= -->
